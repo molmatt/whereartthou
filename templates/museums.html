@@ -1,0 +1,53 @@
+<style>
+
+ .main {
+ background-color: rgba(255, 255, 255, 0.5);
+ margin-top: 100px;
+ padding-bottom: 50px;
+ }
+ .main h1 {
+ font-size: 3.5em;
+ font-family: Arial;
+ color: #2E3759;
+ }
+ .main h2 {
+ font-size: 2em;
+ font-family: Arial;
+ color: #2E3759;
+ }
+ .main h3 {
+ font-size: 2em;
+ font-family: Arial;
+ color: #2E3759;
+ }
+ .main p {
+ font-size:1em;
+ font-family: Arial;
+ color: #2E3759;
+ }
+
+</style>
+
+
+<title>Where Art Thou</title>
+</head>
+<body>
+<div class="main">
+  <div style="text-align:center">
+  <br><br>
+  <div class="starter-template">
+
+<br><br>
+<h3>These museums should have art you like</h3>
+
+{% for i in derp %}
+<p> You liked {{ herp['museumScore'][i] }}% of the art from the <a href="{{ herp['URL'][i] }}">{{ herp['Name'][i] }}</a>. </p>
+{% endfor %}
+
+
+
+
+
+
+</div></div></div>
+</body>

@@ -1,0 +1,70 @@
+<style>
+
+ .main {
+ background-color: rgba(255, 255, 255, 0.5);
+ margin-top: 100px;
+ padding-bottom: 50px;
+ }
+ .main h1 {
+ font-size: 3.5em;
+ font-family: Arial;
+ color: #2E3759;
+ }
+ .main h2 {
+ font-size: 2em;
+ font-family: Arial;
+ color: #2E3759;
+ }
+ .main h3 {
+ font-size: 2em;
+ font-family: Arial;
+ color: #2E3759;
+ }
+ .main p {
+ font-size:1em;
+ font-family: Arial;
+ color: #2E3759;
+ }
+
+
+</style>
+
+
+
+    <title>Where Art Thou</title>
+
+  </head>
+  <body>
+
+<div class="main">
+  <div style="text-align:center">
+    <div class="starter-template">
+
+
+    </div>
+  <br><br>
+
+<!-- This sends user to museums page after filling out the survey  <img src="{{ i }}" style="max-width:20%; max-height:20%;"/> <br> -->
+<form action='/museums', method='POST'>
+
+  <div><h3>Select the pieces you find most appealing</h3></div>
+
+  <br><br>
+{% block content %}
+{% for imagepaths, imagevalues in imageinfo %}
+  <div>
+    <img src="{{ imagepaths }}" style="max-width:20%; max-height:20%;"/> <br>
+    <input type="radio" name="{{ imagevalues }}" value="1"> Like </input> <input type="radio" name="{{ imagevalues }}" value="0"> Dislike </input>
+
+  </div>
+{% endfor %}
+{% endblock %}
+  <br><br><br>
+  <button type="submit">Recommend a Museum</button>
+
+</form>
+
+
+  </div>
+</div>
+</body>
