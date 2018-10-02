@@ -48,7 +48,7 @@ def art():
             if str(NYMdf["Twitter"][i]) != "nan":
                 sn = str(NYMdf["Twitter"][i])
                 tweets = api.user_timeline(screen_name=sn,
-                                   count=300, include_rts=False,
+                                   count=100, include_rts=False,
                                    exclude_replies=True)
                 media_files = set()
                 for status in tweets:
