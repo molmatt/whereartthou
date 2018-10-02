@@ -6,6 +6,7 @@ import tweepy
 import datetime
 from tweepy import OAuthHandler
 import keras
+from boto.s3.connection import S3Connection
 from keras.utils import to_categorical
 from keras.preprocessing.image import ImageDataGenerator, load_img
 from keras.applications import VGG16
@@ -145,11 +146,13 @@ vgg_conv._make_predict_function()
 ArtClassy = keras.models.load_model('ArtClass.h5')
 ArtClassy._make_predict_function()
 datagen = ImageDataGenerator(rescale=1./255)
+
 #Twitter api information, this shouldn't get loaded to github
-consumer_key = '5NSvgZd4QtrRF4LjPB8eHCUfe'
-consumer_secret = 'PH5ALU8G3k7iXQmmTTgw0608zWNA58qS7OgCX97MjX85KMRGHD'
-access_token = '1039211579538120704-5ABB2qxnEOJn0mFKTFcpLN2BnHfJfx'
-access_secret = 'mV8NhgIIQbsG99WnqLvoSQ2VIb4QQw6zp0GLtqysKuq0a'
+s3 = S3Connection(os.environ['consumer_key'], os.environ['consumer_secre'], os.environ['access_token'], os.environ['access_secret'])
+consumer_key = s3[0]
+consumer_secret = s3[1]
+access_token = s3[2]
+access_secret = s3[3]
 
 
 @classmethod
