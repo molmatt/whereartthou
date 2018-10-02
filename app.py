@@ -56,9 +56,14 @@ def art():
                     if(len(media) > 0):
                         media_files.add(media[0]['media_url'])
                 media_files = list(media_files)
-                for j in range(0, len(media_files)):
-                    fp = twitartFP+str(NYMdf["Twitter"][i])+"/pics/"+str(j)+".jpg"
-                    wget.download(media_files[j], out=fp)
+                if len(media_files) > 30:
+                    for j in range(0, 30):
+                        fp = twitartFP+str(NYMdf["Twitter"][i])+"/pics/"+str(j)+".jpg"
+                        wget.download(media_files[j], out=fp)
+                else:
+                    for j in range(0, len(media_files)):
+                        fp = twitartFP+str(NYMdf["Twitter"][i])+"/pics/"+str(j)+".jpg"
+                        wget.download(media_files[j], out=fp)
 
 # Filtering out not art
         nah, musfolds, nope = next(os.walk(twitartFP))
