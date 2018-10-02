@@ -8,6 +8,7 @@ from tweepy import OAuthHandler
 import keras
 from keras.utils import to_categorical
 from keras.preprocessing.image import ImageDataGenerator, load_img
+from keras.applications import VGG16
 import os
 import json
 
@@ -136,7 +137,7 @@ NYMdf = pd.read_csv('C:/Users/mattm/InsightAppMM/NYMuseums.csv')
 
 #Reading in the trained convolutional neural network VGG16 transfer trained on
 #art pictures and not art, also setting up stuff for filtering
-from keras.applications import VGG16
+
 vgg_conv = VGG16(weights='imagenet',
                   include_top=False,
                   input_shape=(224, 224, 3))
