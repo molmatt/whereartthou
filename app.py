@@ -150,7 +150,7 @@ def museums():
     return render_template('museums.html', herp=herp, derp=derp)
 
 #NYC museum information
-NYMdf = pd.read_csv('C:/Users/mattm/InsightAppMM/NYMuseums.csv')
+NYMdf = pd.read_csv('NYMuseums.csv')
 
 #Reading in the trained convolutional neural network VGG16 transfer trained on
 #art pictures and not art, also setting up stuff for filtering
