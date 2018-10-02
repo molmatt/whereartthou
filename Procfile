@@ -1,1 +1,1 @@
-web: gunicorn InsightAppMM:app
+web: gunicorn app:app
