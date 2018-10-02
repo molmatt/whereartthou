@@ -6,7 +6,6 @@ import tweepy
 import datetime
 from tweepy import OAuthHandler
 import keras
-from boto.s3.connection import S3Connection
 from keras.utils import to_categorical
 from keras.preprocessing.image import ImageDataGenerator, load_img
 from keras.applications import VGG16
@@ -17,8 +16,6 @@ import json
 #Initialize app
 app = Flask(__name__, static_url_path='/static')
 
-
-
 # Index/home page
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -27,27 +24,31 @@ def index():
 # Art selection page
 @app.route('/art', methods=['GET', 'POST'])
 def art():
+    wd = os.getcwd()
+    twitartFP = os.path.join(wd,'static/twitart/')
+    NYMfp = os.path.join(wd,'NYMuseums.csv')
+    NYMdf = pd.read_csv(NYMfp)
 
-    NYMdf = pd.read_csv('C:/Users/mattm/InsightAppMM/NYMuseums.csv')
-
-    datePicUpdate = np.genfromtxt("C:/Users/mattm/InsightAppMM/dateupdate.csv", delimiter=",", dtype=str)
+    dateFP = os.path.join(wd,'dateupdate.csv')
+    datePicUpdate = np.genfromtxt(dateFP, delimiter=",", dtype=str)
 
     if datetime.date.today().strftime('%m/%d/%Y') in datePicUpdate:
         print("Pictures already loaded")
     else:
 # Removing yesterdays images
         twitterFP=[]
-        for path, subdirs, files in os.walk("C:/Users/mattm/InsightAppMM/static/twitart/"):
+
+        for path, subdirs, files in os.walk(twitartFP):
             for name in files:
                 twitterFP.append(os.path.join(path, name))
         for f in twitterFP:
-            os.remove(os.path.join("C:/Users/mattm/InsightAppMM/static/twitart/", f))
+            os.remove(os.path.join(twitartFP, f))
 # Getting new images
         for i in range(0, len(NYMdf["Twitter"])):
             if str(NYMdf["Twitter"][i]) != "nan":
                 sn = str(NYMdf["Twitter"][i])
                 tweets = api.user_timeline(screen_name=sn,
-                                   count=200, include_rts=False,
+                                   count=1000, include_rts=False,
                                    exclude_replies=True)
                 media_files = set()
                 for status in tweets:
@@ -56,13 +57,13 @@ def art():
                         media_files.add(media[0]['media_url'])
                 media_files = list(media_files)
                 for j in range(0, len(media_files)):
-                    fp = "C:/Users/mattm/InsightAppMM/static/twitart/"+str(NYMdf["Twitter"][i])+"/pics/"+str(j)+".jpg"
+                    fp = twitartFP+str(NYMdf["Twitter"][i])+"/pics/"+str(j)+".jpg"
                     wget.download(media_files[j], out=fp)
 
 # Filtering out not art
-        nah, musfolds, nope = next(os.walk("C:/Users/mattm/InsightAppMM/static/twitart/"))
+        nah, musfolds, nope = next(os.walk(twitartFP))
         for g in musfolds:
-            path, dirs, files = next(os.walk("C:/Users/mattm/InsightAppMM/static/twitart/"+str(g)+"/pics/"))
+            path, dirs, files = next(os.walk(twitartFP+str(g)+"/pics/"))
             nTest = len(files)
             batch_size = 1
             if nTest != 0:
@@ -95,14 +96,29 @@ def art():
 # Making paths and value labels to be dynamically displayed
     imagepaths = []
     imagevalues = []
-    for i in range(0, len(NYMdf["Twitter"])):
-        if str(NYMdf["Twitter"][i]) != "nan":
-            for j in range(0, 5):
-                fp = "/static/twitart/"+NYMdf['Twitter'][i]+"/pics/"+str(j)+".jpg"
-                cbval = NYMdf['Twitter'][i]+ str(j)
-                if os.path.exists("C:/Users/mattm/InsightAppMM"+fp):
-                    imagepaths.append(fp)
-                    imagevalues.append(cbval)
+    nah, musfolds, nope = next(os.walk(twitartFP))
+    for g in musfolds:
+        path, dirs, files = next(os.walk(twitartFP+str(g)+"/pics/"))
+        if len(files) > 4:
+            for x in range(0, 5):
+                imagepaths.append('/static/twitart/'+g+'/pics/'+files[x])
+                imagevalues.append(g + str(x))
+        if len(files) == 4:
+            for x in range(0, 4):
+                imagepaths.append('/static/twitart/'+g+'/pics/'+files[x])
+                imagevalues.append(g + str(x))
+        if len(files) == 3:
+            for x in range(0, 3):
+                imagepaths.append('/static/twitart/'+g+'/pics/'+files[x])
+                imagevalues.append(g + str(x))
+        if len(files) == 2:
+            for x in range(0, 2):
+                imagepaths.append('/static/twitart/'+g+'/pics/'+files[x])
+                imagevalues.append(g + str(x))
+        if len(files) == 1:
+            imagepaths.append('/static/twitart/'+g+'/pics/'+files[0])
+            imagevalues.append(g + '0')
+
     imageinfo = zip(imagepaths, imagevalues)
 
 
@@ -148,11 +164,10 @@ ArtClassy._make_predict_function()
 datagen = ImageDataGenerator(rescale=1./255)
 
 #Twitter api information, this shouldn't get loaded to github
-s3 = S3Connection(os.environ['consumer_key'], os.environ['consumer_secre'], os.environ['access_token'], os.environ['access_secret'])
-consumer_key = s3[0]
-consumer_secret = s3[1]
-access_token = s3[2]
-access_secret = s3[3]
+consumer_key = os.environ.get('consumer_key')
+consumer_secret = os.environ.get('consumer_secre')
+access_token = os.environ.get('access_token')
+access_secret = os.environ.get('access_secret')
 
 
 @classmethod
