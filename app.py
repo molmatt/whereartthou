@@ -48,7 +48,7 @@ def art():
             if str(NYMdf["Twitter"][i]) != "nan":
                 sn = str(NYMdf["Twitter"][i])
                 tweets = api.user_timeline(screen_name=sn,
-                                   count=100, include_rts=False,
+                                   count=500, include_rts=False,
                                    exclude_replies=True)
                 media_files = set()
                 for status in tweets:
@@ -110,26 +110,14 @@ def art():
             for x in range(0, 5):
                 imagepaths.append('/static/twitart/'+g+'/pics/'+files[x])
                 imagevalues.append(g + str(x))
-        if len(files) == 4:
-            for x in range(0, 4):
+        else:
+            for x in range(0, len(files)):
                 imagepaths.append('/static/twitart/'+g+'/pics/'+files[x])
                 imagevalues.append(g + str(x))
-        if len(files) == 3:
-            for x in range(0, 3):
-                imagepaths.append('/static/twitart/'+g+'/pics/'+files[x])
-                imagevalues.append(g + str(x))
-        if len(files) == 2:
-            for x in range(0, 2):
-                imagepaths.append('/static/twitart/'+g+'/pics/'+files[x])
-                imagevalues.append(g + str(x))
-        if len(files) == 1:
-            imagepaths.append('/static/twitart/'+g+'/pics/'+files[0])
-            imagevalues.append(g + '0')
 
-    imageinfo = zip(imagepaths, imagevalues)
+    hey = range(0, len(imagepaths))
 
-
-    return render_template('art.html', imageinfo=imageinfo)
+    return render_template('art.html', imagepaths=imagepaths, imagevalues=imagevalues, hey=hey)
 
 # Museum recommendation page
 @app.route('/museums', methods=['GET', 'POST'])
@@ -171,11 +159,15 @@ ArtClassy._make_predict_function()
 datagen = ImageDataGenerator(rescale=1./255)
 
 #Twitter api information, this shouldn't get loaded to github
-consumer_key = os.environ.get('consumer_key')
-consumer_secret = os.environ.get('consumer_secre')
-access_token = os.environ.get('access_token')
-access_secret = os.environ.get('access_secret')
+#consumer_key = os.environ.get('consumer_key')
+#consumer_secret = os.environ.get('consumer_secre')
+#access_token = os.environ.get('access_token')
+#access_secret = os.environ.get('access_secret')
 
+consumer_key = 'OUqMeG9ej7AOIWZe49h7Pn0BA'
+consumer_secret = 'lmrL8SAi4rn8jDcMxDguJbstB148zLow5nP5PPsulK77jFuoGv'
+access_token = '1039211579538120704-lWwy6SVfqvFnqwmRBabA0mCvGCBjJE'
+access_secret = 'dAa9wlAR4XhdivAaFDAyqjbIbnPZkSGqQU0kNYs6dPIuo'
 
 @classmethod
 def parse(cls, api, raw):

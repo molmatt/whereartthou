@@ -52,10 +52,10 @@
 
   <br><br>
 {% block content %}
-{% for imagepaths, imagevalues in imageinfo %}
+{% for i in hey %}
   <div>
-    <img src="{{ imagepaths }}" style="max-width:20%; max-height:20%;"/> <br>
-    <input type="radio" name="{{ imagevalues }}" value="1"> Like </input> <input type="radio" name="{{ imagevalues }}" value="0"> Dislike </input>
+    <img src="{{ imagepaths[i] }}" style="max-width:20%; max-height:20%;"/> <br>
+    <input type="radio" name="{{ imagevalues[i] }}" value="1"> Like </input> <input type="radio" name="{{ imagevalues[i] }}" value="0"> Dislike </input>
 
   </div>
 {% endfor %}
