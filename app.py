@@ -105,7 +105,7 @@ def art():
     imagevalues = []
     nah, musfolds, nope = next(os.walk(twitartFP))
     for g in musfolds:
-        path, dirs, files = next(os.walk(twitartFP+str(g)+"/pics/"))
+        path, dirs, files = next(os.walk(twitartFP+'/'+str(g)+"/pics/"))
         if len(files) > 4:
             for x in range(0, 5):
                 imagepaths.append('/static/twitart/'+g+'/pics/'+files[x])
@@ -114,8 +114,6 @@ def art():
             for x in range(0, len(files)):
                 imagepaths.append('/static/twitart/'+g+'/pics/'+files[x])
                 imagevalues.append(g + str(x))
-        else:
-            print("no art from here boss")
 
     hey = range(0, len(imagepaths))
 
@@ -163,7 +161,6 @@ consumer_key = os.environ.get('consumer_key')
 consumer_secret = os.environ.get('consumer_secre')
 access_token = os.environ.get('access_token')
 access_secret = os.environ.get('access_secret')
-
 
 
 @classmethod
