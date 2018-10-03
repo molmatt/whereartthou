@@ -110,10 +110,12 @@ def art():
             for x in range(0, 5):
                 imagepaths.append('/static/twitart/'+g+'/pics/'+files[x])
                 imagevalues.append(g + str(x))
-        else:
+        elif len(files) > 0:
             for x in range(0, len(files)):
                 imagepaths.append('/static/twitart/'+g+'/pics/'+files[x])
                 imagevalues.append(g + str(x))
+        else:
+            print("no art from here boss")
 
     hey = range(0, len(imagepaths))
 
