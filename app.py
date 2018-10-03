@@ -62,7 +62,7 @@ def art():
                     for j in range(0, 30):
                         fp = twitartFP+str(NYMdf["Twitter"][i])+"/pics/"+str(j)+".jpg"
                         wget.download(media_files[j], out=fp)
-                else:
+                elif len(media_files) > 0:
                     for j in range(0, len(media_files)):
                         fp = twitartFP+str(NYMdf["Twitter"][i])+"/pics/"+str(j)+".jpg"
                         wget.download(media_files[j], out=fp)
