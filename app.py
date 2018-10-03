@@ -57,9 +57,9 @@ def art():
                         media_files.add(media[0]['media_url'])
                 tweets = []
                 media_files = list(media_files)
-
-                if len(media_files) > 30:
-                    for j in range(0, 30):
+                print(media_files)
+                if len(media_files) > 10:
+                    for j in range(0, 10):
                         fp = twitartFP+str(NYMdf["Twitter"][i])+"/pics/"+str(j)+".jpg"
                         wget.download(media_files[j], out=fp)
                 elif len(media_files) > 0:
@@ -161,6 +161,7 @@ consumer_key = os.environ.get('consumer_key')
 consumer_secret = os.environ.get('consumer_secre')
 access_token = os.environ.get('access_token')
 access_secret = os.environ.get('access_secret')
+
 
 
 @classmethod
