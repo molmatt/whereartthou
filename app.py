@@ -152,9 +152,7 @@ NYMdf = pd.read_csv('NYMuseums.csv')
 #Reading in the trained convolutional neural network VGG16 transfer trained on
 #art pictures and not art, also setting up stuff for filtering
 
-vgg_conv = VGG16(weights='imagenet',
-                  include_top=False,
-                  input_shape=(224, 224, 3))
+vgg_conv = keras.models.load_model('firsthalf.h5')
 vgg_conv._make_predict_function()
 ArtClassy = keras.models.load_model('ArtClass.h5')
 ArtClassy._make_predict_function()
