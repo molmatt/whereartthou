@@ -7,6 +7,9 @@ import os
 #Initialize app
 app = Flask(__name__, static_url_path='/static')
 
+wd = os.getcwd()
+twitartFP = os.path.join(wd,'static/twitart/')
+NYMfp = os.path.join(wd,'NYMuseums.csv')
 # Index/home page
 @app.route('/', methods=['GET', 'POST'])
 def index():
