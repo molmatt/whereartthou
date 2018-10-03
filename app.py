@@ -161,15 +161,12 @@ ArtClassy._make_predict_function()
 datagen = ImageDataGenerator(rescale=1./255)
 
 #Twitter api information, this shouldn't get loaded to github
-#consumer_key = os.environ.get('consumer_key')
-#consumer_secret = os.environ.get('consumer_secre')
-#access_token = os.environ.get('access_token')
-#access_secret = os.environ.get('access_secret')
+consumer_key = os.environ.get('consumer_key')
+consumer_secret = os.environ.get('consumer_secre')
+access_token = os.environ.get('access_token')
+access_secret = os.environ.get('access_secret')
 
-consumer_key = 'OUqMeG9ej7AOIWZe49h7Pn0BA'
-consumer_secret = 'lmrL8SAi4rn8jDcMxDguJbstB148zLow5nP5PPsulK77jFuoGv'
-access_token = '1039211579538120704-lWwy6SVfqvFnqwmRBabA0mCvGCBjJE'
-access_secret = 'dAa9wlAR4XhdivAaFDAyqjbIbnPZkSGqQU0kNYs6dPIuo'
+
 
 @classmethod
 def parse(cls, api, raw):
