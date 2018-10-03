@@ -55,7 +55,9 @@ def art():
                     media = status.entities.get('media', [])
                     if(len(media) > 0):
                         media_files.add(media[0]['media_url'])
+                tweets = []
                 media_files = list(media_files)
+
                 if len(media_files) > 30:
                     for j in range(0, 30):
                         fp = twitartFP+str(NYMdf["Twitter"][i])+"/pics/"+str(j)+".jpg"
@@ -66,34 +68,34 @@ def art():
                         wget.download(media_files[j], out=fp)
 
 # Filtering out not art
-        nah, musfolds, nope = next(os.walk(twitartFP))
-        for g in musfolds:
-            path, dirs, files = next(os.walk(twitartFP+str(g)+"/pics/"))
-            nTest = len(files)
-            batch_size = 1
-            if nTest != 0:
-                test_dir = nah+str(g)
-                test_features = np.zeros(shape=(nTest, 7, 7, 512))
-                test_generator = datagen.flow_from_directory(
-                    test_dir,
-                    target_size=(224, 224),
-                    batch_size=1,
-                    class_mode=None,
-                    shuffle=False)
+#        nah, musfolds, nope = next(os.walk(twitartFP))
+#        for g in musfolds:
+#            path, dirs, files = next(os.walk(twitartFP+str(g)+"/pics/"))
+#            nTest = len(files)
+#            batch_size = 1
+#            if nTest != 0:
+#                test_dir = nah+str(g)
+#                test_features = np.zeros(shape=(nTest, 7, 7, 512))
+#                test_generator = datagen.flow_from_directory(
+#                    test_dir,
+#                    target_size=(224, 224),
+#                    batch_size=1,
+#                    class_mode=None,
+#                    shuffle=False)
 # Feeding through the VGG16
-                i = 0
-                for inputs_batch in test_generator:
-                    features_batch = vgg_conv.predict(inputs_batch)
-                    test_features[i * batch_size : (i + 1) * batch_size] = features_batch
-                    i += 1
-                    if i * batch_size >= nTest:
-                        break
+#                i = 0
+#                for inputs_batch in test_generator:
+#                    features_batch = vgg_conv.predict(inputs_batch)
+#                    test_features[i * batch_size : (i + 1) * batch_size] = features_batch
+#                    i += 1
+#                    if i * batch_size >= nTest:
+#                        break
 # Feeding VGG16 output through art classifying layers and filtering out 'not art'
-                test_features = np.reshape(test_features, (nTest, 7 * 7 * 512))
-                prediction = ArtClassy.predict_classes(test_features)
-                for x in range(0, len(prediction)):
-                    if prediction[x] == 1:
-                        os.remove(os.path.join(path, files[x]))
+#                test_features = np.reshape(test_features, (nTest, 7 * 7 * 512))
+#                prediction = ArtClassy.predict_classes(test_features)
+#                for x in range(0, len(prediction)):
+#                    if prediction[x] == 1:
+#                        os.remove(os.path.join(path, files[x]))
 # Updating last accessed date
         datePicUpdate = np.append(datePicUpdate, datetime.date.today().strftime('%m/%d/%Y'))
         np.savetxt("dateupdate.csv", datePicUpdate, delimiter=",", fmt='%s')
