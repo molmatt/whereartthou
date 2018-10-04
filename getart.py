@@ -14,7 +14,9 @@ import numpy as np
 NYMdf = pd.read_csv('NYMuseums.csv')
 #Reading in the trained convolutional neural network VGG16 transfer trained on
 #art pictures and not art, also setting up stuff for filtering
-vgg_conv = keras.models.load_model('firsthalf.h5')
+vgg_conv = vgg_conv = VGG16(weights='imagenet',
+                  include_top=False,
+                  input_shape=(224, 224, 3))
 vgg_conv._make_predict_function()
 ArtClassy = keras.models.load_model('ArtClass.h5')
 ArtClassy._make_predict_function()
@@ -66,7 +68,7 @@ def getart():
         if str(NYMdf["Twitter"][i]) != "nan":
             sn = str(NYMdf["Twitter"][i])
             tweets = api.user_timeline(screen_name=sn,
-                               count=100, include_rts=False,
+                               count=200, include_rts=False,
                                exclude_replies=True)
             media_files = set()
             for status in tweets:
@@ -75,7 +77,6 @@ def getart():
                     media_files.add(media[0]['media_url'])
             tweets = []
             media_files = list(media_files)
-            print(media_files)
             if len(media_files) > 10:
                 for j in range(0, 10):
                     try:
