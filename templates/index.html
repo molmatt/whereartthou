@@ -24,7 +24,7 @@
  color: #2E3759;
  }
  .main p {
- font-size:1em;
+ font-size:.8em;
  font-family: Arial;
  color: #2E3759;
  }
@@ -48,16 +48,26 @@
         <h1>Where Art Thou</h1>
         <h3>A Web App to Help You Decide Which Art Museum You Would Prefer</h3>
 
+
       </div>
-      <br><br><br>
+      <br><br><br><br><br>
       <div class='buttons'>
 
     <!-- This is what takes you to my next page recommender.html -->
       <form action='/art', method='POST'>
 
-        <button type="submit">Look at Nearby Art</button>
+        <button type="submit">Look at Art in NYC</button>
       </form>
 
+      <br>
+      <br>
+      <br>
+      <p> Every day, 'Where Art Thou' pulls the last ten images from the twitter feeds of art museums in New York City. <br>
+          It then runs these images through a convolutional neural network to filter out images that are not art. While<br>
+          the filtering process is not perfect, it accomplishes the task with 89% accuracy. That being said, if you do see <br>
+          anything you wouldn't classify as art, feel free to skip rating that image. It won't factor in to the suggestion. </p>
+
+          <p> Have fun! </p>
 
 
     </div>
