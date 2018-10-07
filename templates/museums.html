@@ -38,9 +38,10 @@
   <div class="starter-template">
 
 <br><br>
-<h3>These museums should have art you like</h3>
+<h3>These museums had the art you liked the most</h3>
 
 {% for i in derp %}
+<img src="{{ herp['Pics'][i] }}" style="max-width:30%; max-height:20%;"/>
 <p> You liked {{ herp['museumScore'][i] }}% of the art from the <a href="{{ herp['URL'][i] }}">{{ herp['Name'][i] }}</a>. <br>
 <a href="{{ herp['Maps'][i] }}">Get Directions</a> </p>
 {% endfor %}
