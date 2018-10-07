@@ -41,7 +41,8 @@
 <h3>These museums should have art you like</h3>
 
 {% for i in derp %}
-<p> You liked {{ herp['museumScore'][i] }}% of the art from the <a href="{{ herp['URL'][i] }}">{{ herp['Name'][i] }}</a>. </p>
+<p> You liked {{ herp['museumScore'][i] }}% of the art from the <a href="{{ herp['URL'][i] }}">{{ herp['Name'][i] }}</a>. <br>
+<a href="{{ herp['Maps'][i] }}">Get Directions</a> </p>
 {% endfor %}
 
 
