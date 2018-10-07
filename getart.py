@@ -53,9 +53,6 @@ def getart():
     NYMfp = os.path.join(wd,'NYMuseums.csv')
     NYMdf = pd.read_csv(NYMfp)
 
-    dateFP = os.path.join(wd,'dateupdate.csv')
-    datePicUpdate = np.genfromtxt(dateFP, delimiter=",", dtype=str)
-
 # Removing yesterdays images
     twitterFP=[]
     for path, subdirs, files in os.walk(twitartFP):
