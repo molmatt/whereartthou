@@ -60,12 +60,17 @@ def getart():
             twitterFP.append(os.path.join(path, name))
     for f in twitterFP:
         os.remove(os.path.join(twitartFP, f))
+    twitterFP=[]
+    for path, subdirs, files in os.walk(twitartFP):
+        for name in files:
+            twitterFP.append(os.path.join(path, name))
+    print(twitterFP)
 # Getting new images
     for i in range(0, len(NYMdf["Twitter"])):
         if str(NYMdf["Twitter"][i]) != "nan":
             sn = str(NYMdf["Twitter"][i])
             tweets = api.user_timeline(screen_name=sn,
-                               count=200, include_rts=False,
+                               count=500, include_rts=False,
                                exclude_replies=True)
             media_files = set()
             for status in tweets:
