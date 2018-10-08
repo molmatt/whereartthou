@@ -22,7 +22,7 @@ ArtClassy = keras.models.load_model('ArtClass.h5')
 ArtClassy._make_predict_function()
 datagen = ImageDataGenerator(rescale=1./255)
 
-#Twitter api information, this shouldn't get loaded to github
+Twitter api information, this shouldn't get loaded to github
 consumer_key = os.environ.get('consumer_key')
 consumer_secret = os.environ.get('consumer_secre')
 access_token = os.environ.get('access_token')
@@ -61,10 +61,6 @@ def getart():
     for f in twitterFP:
         os.remove(os.path.join(twitartFP, f))
     twitterFP=[]
-    for path, subdirs, files in os.walk(twitartFP):
-        for name in files:
-            twitterFP.append(os.path.join(path, name))
-    print(twitterFP)
 # Getting new images
     for i in range(0, len(NYMdf["Twitter"])):
         if str(NYMdf["Twitter"][i]) != "nan":
